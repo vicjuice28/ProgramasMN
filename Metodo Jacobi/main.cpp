@@ -33,7 +33,7 @@ do
     Max2 = max(X1, X3);
     Max3 = max(X2,X3);
     Max4 = max (Max1, Max2);
-    MaxF = max(Max4, Max4);
+    MaxF = max(Max3, Max4);
     Error = abs((MaxF-antMaxF)/MaxF)*100;
     antMaxF = MaxF;
 
