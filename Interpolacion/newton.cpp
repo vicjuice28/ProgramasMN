@@ -2,7 +2,7 @@
 #include <cstdlib>
 using namespace std;
  
-void NewtonInterpolation(){
+void Newton(){
   cout<<"\nInterpolacion por polinomios de Newton"<<endl;
   int i,j;
   float sum,mult;
@@ -29,7 +29,7 @@ void NewtonInterpolation(){
  
 int main() {
   
-  NewtonInterpolation();
+  Newton();
   system("PAUSE");
   return 0;
 }
