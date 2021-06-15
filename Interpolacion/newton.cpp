@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
  
 void NewtonInterpolation(){
@@ -29,5 +30,6 @@ void NewtonInterpolation(){
 int main() {
   
   NewtonInterpolation();
+  system("PAUSE");
   return 0;
 }

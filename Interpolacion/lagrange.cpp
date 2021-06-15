@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 int i, j;
@@ -32,5 +33,6 @@ int main() {
  
  
   Lagrange();
+  system("PAUSE");
   return 0;
 }
