@@ -4,56 +4,110 @@
 #include<iomanip>
 
 using namespace std;
-
-int i=1;
-float X1=0,X2=0,X3=0, ErrorX1, ErrorX2, ErrorX3;
-float X1ant = 0, X2ant = 0, X3ant = 0;
-float Tolerancia = 0.0000001;
+double  num=0, a,b,c,d;
+double Ecuacion1[4],Ecuacion2[4],Ecuacion3[4], Matriz[20][6];
+int j=1, i=1;
 
 
-void Metodo() {
+void Despeje(double Ecuacion[],double Ecuacion2[],double Ecuacion3[]){
+    for(int i=1; i<=2;i++){
+        Ecuacion1[i]= -Ecuacion[i];
+        Ecuacion2[i]= -Ecuacion[i];
+        Ecuacion3[i]= -Ecuacion[i];
 
-/*Ecuaciones
-4X+X+2X =9
-2X +4X-X = -5
-X+X-3X = 9 */
-
-/*X1 = (-X2-2X3+9)/4
-X2= (-2X1+X3-5)/4
-X3= (-X1-X2-9)/-3 */
-
-cout<<"i\tX1\tX2\tX3\tErrorX1\tErrorX2\tErrorX3"<<endl;
-
-
-do
-{
-    X1 = ((-X2)-(2*X3)+9)/4;
-    X2 = ((-2*X1)+X3 - 5)/4;
-    X3 = ((-X1)-X2 -9)/-3;
-
-   ErrorX1 = abs((X1-X1ant)/X1) *100;
-   ErrorX2 = abs((X2-X2ant)/X2) *100;
-   ErrorX3 = abs((X3-X3ant)/X3) *100;
-   X1ant = X1;
-   X2ant = X2;
-   X3ant = X3;
-
-    cout<<i<<"\t"<<fixed<<setprecision(3)<<X1<<"\t"<<X2<<"\t"<<X3<<"\t"<<setprecision(2)<<ErrorX1<<"\t"<<ErrorX2<<"\t"<<ErrorX3<<endl;
-    i++;
-} while (ErrorX3 > Tolerancia);
-
-
-
+    }
 }
 
+void Sustitucion(double Ecuacion1[],double Ecuacion2[],double Ecuacion3[]){
+    num = Ecuacion1[1];
+    for(int i=1;i<=3; i++){
+        Ecuacion1[i]= Ecuacion1[i+1];
+    }
+    Ecuacion1[4] = num;
+
+    num =Ecuacion2[2];
+    for(int i =2; i<=3;i++){
+        Ecuacion2[i] = Ecuacion2[i+1];
+    }
+    Ecuacion2[4] = num;
+
+    num = Ecuacion3[3];
+    for (int i=3; i<=3; i++){
+        Ecuacion3[i]= Ecuacion3[i+1];
+    }
+    Ecuacion3[4] = num;
+
+    Despeje(Ecuacion1,Ecuacion2,Ecuacion3);
+}
+
+void Asigna(double Ecuacion[],double a,double b,double c,double d){
+    Ecuacion[1] = a;
+    Ecuacion[2] = b;
+    Ecuacion[3] = c;
+    Ecuacion[4] = d;
+}
 
 
 int main(){
 
+    
+    cout<<"Ingrese de la siguiente forma Ax+Bx+Cx= D"<<endl;
+    cout<<"Ingrese valores para primera ecuacion"<<endl;
+    cout<<"Valor en A: "<<endl; cin>>a;
+    cout<<"Valor en B: "<<endl; cin>>b;
+    cout<<"Valor en C: "<<endl; cin>>c;
+    cout<<"Valor en D: "<<endl; cin>>d;
+
+    Asigna(Ecuacion1,a,b,c,d);
+
+    
+    cout<<"Ingrese valores para segunda ecuacion"<<endl;
+    cout<<"Valor en A: "<<endl; cin>>a;
+    cout<<"Valor en B: "<<endl; cin>>b;
+    cout<<"Valor en C: "<<endl; cin>>c;
+    cout<<"Valor en D: "<<endl; cin>>d;
+
+    Asigna(Ecuacion2,a,b,c,d);
+    
+    cout<<"Ingrese valores para tercera ecuacion"<<endl;
+    cout<<"Valor en A: "<<endl; cin>>a;
+    cout<<"Valor en B: "<<endl; cin>>b;
+    cout<<"Valor en C: "<<endl; cin>>c;
+    cout<<"Valor en D: "<<endl; cin>>d;
+
+    Asigna(Ecuacion3,a,b,c,d);
+    
+    Sustitucion(Ecuacion1,Ecuacion2,Ecuacion3);
+
+//Conversion para fila 1
+    Matriz[1][1] = ((Ecuacion1[1] * 0) + (Ecuacion1[2] * 0) + Ecuacion1[3]) / Ecuacion1[4];
+	Matriz[1][2] = ((Ecuacion2[1] * Matriz[1][1]) + (Ecuacion2[2] * 0) + Ecuacion2[3]) / Ecuacion2[4];
+	Matriz[1][3] = ((Ecuacion3[1] * Matriz[1][1]) + (Ecuacion3[2] * Matriz[1][2]) + Ecuacion3[3]) / Ecuacion3[4];
+	Matriz[1][4] = (Matriz[1][1]-0) / Matriz[1][1];
+	Matriz[1][5] = (Matriz[1][2]-0) / Matriz[1][2];
+	Matriz[1][6] = (Matriz[1][3]-0) / Matriz[1][3];
+
+
+//Se hace el metodo de Gauss
+
+    for(i=2;i<=20;i++){ 
+		Matriz[i][j] = ((Ecuacion1[1] * Matriz[i-1][j+1]) + (Ecuacion1[2] * Matriz[i-1][j+2]) + Ecuacion1[3]) / Ecuacion1[4];
+		Matriz[i][j+1] = ((Ecuacion2[1] * Matriz[i-1][j]) + (Ecuacion2[2] * Matriz[i-1][j+2]) + Ecuacion2[3]) / Ecuacion2[4];
+		Matriz[i][j+2] = ((Ecuacion3[1] * Matriz[i-1][j]) + (Ecuacion3[2] * Matriz[i][j+1]) + Ecuacion3[3]) / Ecuacion3[4];
+		Matriz[i][j+3] = (Matriz[i][1] - Matriz[i-1][1]) / Matriz[i][1];
+		Matriz[i][j+4] = (Matriz[i][2] - Matriz[i-1][2]) / Matriz[i][2];
+		Matriz[i][j+5] = (Matriz[i][3] - Matriz[i-3][3]) / Matriz[i][3];	
+	}
+    for(i = 1 ; i <= 15 ; i++){
+		cout<<i<<"-. ";
+		for(j = 1; j <= 6 ; j++){
+			cout<<fixed<<setprecision(4)<<Matriz[i][j]<<"	";
+		}
+		cout<<endl;
+	}
 
 
 
-    Metodo();
 
 
 
@@ -61,6 +115,15 @@ int main(){
 
 
 
-    system("PAUSE");        
+
+
+
+
+
+
+
+
+    system("PAUSE");
+
     return 0;
 }
