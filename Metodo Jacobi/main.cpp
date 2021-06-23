@@ -1,3 +1,5 @@
+//Jacobi
+
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -6,7 +8,7 @@
 using namespace std;
 
 double num= 0, a,b,c,d, Maximo,Error, Error1,Error2;
-double Ecuacion1[4],Ecuacion2[4],Ecuacion3[4], Matriz[20][6];
+double Ecuacion1[4],Ecuacion2[4],Ecuacion3[4], Matriz[10][6];
 int j=1, it=1;
 
 void Despeje(double Ecuacion1[],double Ecuacion2[],double Ecuacion3[]){
@@ -99,24 +101,24 @@ int main(){
 			j++;
 			Matriz[it][j] = Resultado(Ecuacion2[1],Ecuacion2[2],Ecuacion2[3],Ecuacion2[4],0,0); 
 			double num2 = Matriz[it][j];
-			cout<<"	|"<<Matriz[it][j];
+			cout<<"	 "<<Matriz[it][j];
 			j++;
 			Matriz[it][j] = Resultado(Ecuacion3[1],Ecuacion3[2],Ecuacion3[3],Ecuacion3[4],0,0);
 			double num3 = Matriz[it][j];
-			cout<<"	|"<<Matriz[it][j];
+			cout<<"	 "<<Matriz[it][j];
 			j++;
 			Matriz[it][j] = Max(num1,num2,num3);
-			cout<<"	|"<<Matriz[it][j];
+			cout<<"	 "<<Matriz[it][j];
 			j++;
 			Matriz[it][j] = abs((Matriz[it][4] - Matriz[it][4])/Matriz[it][4]);
-			cout<<"	|"<<Matriz[it][j];
+			cout<<"	 "<<Matriz[it][j];
 			break;
 		}
 		break;
 	}
     cout<<"\n";
 
-    while(it <= 8){
+    while(it <= 10){
 		it++; j=1;
 		while(j<3){
 			Matriz[it][j] = Resultado(Ecuacion1[1],Ecuacion1[2],Ecuacion1[3],Ecuacion1[4],Matriz[it-1][2],Matriz[it-1][3]); 
@@ -125,19 +127,19 @@ int main(){
 			j++;
 			Matriz[it][j] = Resultado(Ecuacion2[1],Ecuacion2[2],Ecuacion2[3],Ecuacion2[4],Matriz[it-1][1],Matriz[it-1][3]); 
 			double num2 = Matriz[it][j];
-			cout<<"	|"<<Matriz[it][j];
+			cout<<"	 "<<Matriz[it][j];
 			j++;
 			Matriz[it][j] = Resultado(Ecuacion3[1],Ecuacion3[2],Ecuacion3[3],Ecuacion3[4],Matriz[it-1][1],Matriz[it-1][2]);
 			double num3 = Matriz[it][j];
-			cout<<"	|"<<Matriz[it][j];
+			cout<<"	 "<<Matriz[it][j];
 			j++;
 			Matriz[it][j] = Max(num1,num2,num3);
 			Error1 = Matriz[it][4];
 			Error2 = Matriz[it-1][4];
-			cout<<"	|"<<Matriz[it][j];
+			cout<<"	 "<<Matriz[it][j];
 			j++;
 			Matriz[it][j] = abs((Error1-Error2)/Error2);
-			cout<<"	|"<<Matriz[it][j]<<endl;
+			cout<<"	 "<<Matriz[it][j]<<endl;
 			break;
 		}
 	}
